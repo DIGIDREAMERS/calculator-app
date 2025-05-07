@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+build/
+bin/
+dist/
+*.apk
+*.keystore
+.venv/
+.venv*/
+.egg-info/
+.local/
+*.log
+.buildozer/
+libjxl/
