@@ -1,0 +1,35 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip python3-setuptools python3-wheel python3-dev build-essential libffi-dev libssl-dev libsqlite3-dev zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev libgdbm-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev
+          pip install --upgrade pip
+          pip install cython virtualenv
+          pip install buildozer
+
+      - name: Build APK
+        run: |
+          buildozer android debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: calculator-app-apk
+          path: bin/*.apk
