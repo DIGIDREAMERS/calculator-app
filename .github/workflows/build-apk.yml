@@ -27,8 +27,11 @@ jobs:
       - name: Build APK
         run: |
           buildozer android debug
+          echo "APK build finished, listing contents of bin/"
+          ls -l bin
 
       - name: Upload APK
+        if: success() && exists('bin/')
         uses: actions/upload-artifact@v3
         with:
           name: calculator-app-apk
