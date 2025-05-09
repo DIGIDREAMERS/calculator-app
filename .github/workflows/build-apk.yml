@@ -1,5 +1,5 @@
-name: Build APK
-
+- name: Build APK
+  
 on:
   workflow_dispatch:
 
@@ -29,6 +29,7 @@ jobs:
           buildozer android debug
           echo "APK build finished, listing contents of bin/"
           ls -l bin
+          ls -la bin/
 
       - name: Upload APK
         if: success() && exists('bin/')
